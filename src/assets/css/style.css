@@ -1,0 +1,141 @@
+@media (min-width: 768px) {
+  .auth {
+    width: 400px;
+  }
+
+  .cart {
+    text-align: right;
+    padding-right: 20px;
+  }
+
+  .card-title {
+    font-size: 35px;
+  }
+
+  .category {
+    width: 186px;
+    height: 200px;
+  }
+
+  .card-image1 {
+    width: 116px;
+    height: 146px;
+  }
+
+  .card-image2 {
+    width: 160px;
+    height: 146px;
+  }
+
+  .card-image3 {
+    width: 131px;
+    height: 131px;
+  }
+
+  .card-image4 {
+    width: 76px;
+    height: 131px;
+  }
+
+  .card-image5 {
+    width: 169px;
+    height: 109px;
+  }
+
+  .card-image6 {
+    width: 118px;
+    height: 131px;
+  }
+
+  .card-cat {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .auth {
+    width: 300px;
+  }
+
+  .cart {
+    margin: 10px 0;
+    padding-right: 15px;
+  }
+
+  .category {
+    width: 136px;
+    height: 150px;
+  }
+
+  .card-image1 {
+    width: 66px;
+    height: 86px;
+  }
+
+  .card-title {
+    font-size: 20px;
+  }
+}
+
+.fontColor {
+  color: #5F4B8B;
+}
+
+.fontColor:hover {
+  color: #443664;
+}
+
+.btn-themeColor {
+  color: #5F4B8B;
+  border-color: #5F4B8B;
+}
+
+.btn-themeColor:hover {
+  background-color: #443664;
+}
+
+.btn-1 {
+  background-color: #5F4B8B;
+}
+
+.btn-1:hover, .btn-1:focus, .btn-2:hover, .btn-2:focus {
+  background-color: #443664;
+}
+
+.btn-2 {
+  background-color: #fff;
+  border-color: #9b9b9b;
+  color: #9b9b9b;
+}
+
+.btn-3, .chowzb {
+  background-color: #fff;
+}
+
+.btn-3:hover, .btn-3:focus {
+  background-color: #fff;
+}
+
+Nav NavItem Button .btn-3.filter {
+  border-color: #9b9b9b;
+}
+
+.search-icon img {
+  top: 50%
+}
+
+.filter {
+  border-radius: 15px 15px;
+}
+
+.btn-1.form, .btn-2.form {
+  width: 123px;
+}
+
+.form, .auth-input {
+  height: 48px;
+}
+
+.auth-input::placeholder, .input::placeholder {
+  color: #9b9b9b;
+}
