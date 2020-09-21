@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {} from 'reactstrap'
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// importing pages
+import Home from './pages/Home'
+import Items from './pages/Items'
+import Users from './pages/Users'
+import Category from './pages/Category'
+import HomePage from './pages/HomePage'
+import HomePageLogin from './pages/HomePage-login'
+import Login from './pages/Login'
+import Register from './pages/Register'
+
+class App extends React.Component{
+  render(){
+    return(
+      <BrowserRouter>
+        <Switch>
+          <Route path='/homepage' component={HomePage} />
+          <Route path='/homepage-login' component={HomePageLogin} />
+          <Route path='/login' component={Login} />
+          <Route path='/register' component={Register} />
+          <Route path="/" component={Home} exact />
+          <Route path="/category" component={Category} />
+          <Route path="/items" component={Items} />
+          <Route path="/users" component={Users} />
+        </Switch>
+      </BrowserRouter>
+    )
+  }
 }
 
 export default App;
