@@ -34,6 +34,7 @@ class GetItems extends React.Component{
     this.setState({
       data: data.data,
     })
+    console.log(this.state.data)
   }
 
   createCategory = () => {
@@ -130,8 +131,8 @@ class GetItems extends React.Component{
                 return(
                   <React.Fragment>
                     <tr>
-                      <th scope='row'>{item.category_id}</th>
-                      <td>{item.category_name}</td>
+                      <th scope='row'>{item.id}</th>
+                      <td>{item.name}</td>
                       <td>
                         <Button block size="sm" color="primary" onClick={()=>this.detailCategory(item.category_id)}>Detail</Button>
                       </td>

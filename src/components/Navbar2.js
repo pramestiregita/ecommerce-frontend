@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom'
 
 // importing images
 import logo from '../assets/images/logo.svg'
-// import search from '../assets/images/search.svg'
+import search from '../assets/images/search.svg'
 import filter from '../assets/images/filter.svg'
 import cart from '../assets/images/cart.svg'
 import bell from '../assets/images/bell.svg'
@@ -44,21 +44,23 @@ class NavigationBar extends React.Component{
                   <Row className='w-100 align-items-center no-gutters'>
                     <Col xs='12' lg='8' className='w-100'>
                       <Row className='no-gutters mt-3 mt-lg-0'>
-                        <Col xs='10' lg='10' className='w-100 d-flex position-relative'>
-                          <div className='w-100'>
-                            <Nav navbar className='w-100'>
-                              <NavItem className='w-100'>
-                                <Input className='rounded-pill w-100 input pl-4' type='search' placeholder='Search' />
-                              </NavItem>
-                            </Nav>
+                        <Col xs='10' lg='10' className='w-100'>
+                          <div className='d-flex position-relative'>
+                            <div className='w-100'>
+                              <Nav navbar className='w-100'>
+                                <NavItem className='w-100'>
+                                  <Input className='rounded-pill w-100 input pl-4' type='search' placeholder='Search' aria-label='Search' />
+                                </NavItem>
+                              </Nav>
+                            </div>
+                            <div className='search-icon position-absolute'>
+                              <Nav navbar className='w-100'>
+                                <NavItem className='w-100'>
+                                  <img src={search} alt='Search Icon' />
+                                </NavItem>
+                              </Nav>
+                            </div>
                           </div>
-                          {/* <div className='position-absolute'>
-                            <Nav navbar className='w-100'>
-                              <NavItem className='w-100 search-icon'>
-                                <img src={search} alt='Search Icon' />
-                              </NavItem>
-                            </Nav>
-                          </div> */}
                         </Col>
                         <Col xs='1' lg='1' className='ml-2'>
                           <Nav navbar className='w-100'>

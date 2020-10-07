@@ -85,15 +85,6 @@
   color: #443664;
 }
 
-.btn-themeColor {
-  color: #5F4B8B;
-  border-color: #5F4B8B;
-}
-
-.btn-themeColor:hover {
-  background-color: #443664;
-}
-
 .btn-1 {
   background-color: #5F4B8B;
 }
@@ -116,16 +107,15 @@
   background-color: #fff;
 }
 
-Nav NavItem Button .btn-3.filter {
-  border-color: #9b9b9b;
-}
-
-.search-icon img {
-  top: 50%
+.search-icon {
+  top: 50%;
+  right: 20px;
+  transform: translate(-50%, -50%);
 }
 
 .filter {
   border-radius: 15px 15px;
+  border: 1px solid #9b9b9b;
 }
 
 .btn-1.form, .btn-2.form {
@@ -138,4 +128,14 @@ Nav NavItem Button .btn-3.filter {
 
 .auth-input::placeholder, .input::placeholder {
   color: #9b9b9b;
+}
+
+.input.search, .asc {
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+
+.btn-search, .desc {
+  border-top-right-radius: 25px !important;
+  border-bottom-right-radius: 25px !important;
 }

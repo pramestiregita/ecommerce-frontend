@@ -9,7 +9,7 @@ import item from '../assets/images/item.jpg'
 export default function CardItem() {
   return(
     <>
-      <Card className='rounded-lg mt-3'>
+      <Card className='rounded-lg mt-3 shadow'>
         <CardImg top width="100%" src={item} alt="Item image" />
         <CardBody>
           <CardText className='m-0'><span className='font-weight-bold h6'>Men's formal suit - Black & White</span></CardText>
