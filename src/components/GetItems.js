@@ -142,6 +142,7 @@ class GetItems extends React.Component{
 
   detailItem = async(id)=>{
     const {data} = await axios.get(`${this.state.url}/${id}`)
+    console.log(data)
     this.setState({
       modalDetailOpen: true,
       ...data.data[0]
