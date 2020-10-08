@@ -116,6 +116,7 @@ class GetItems extends React.Component{
     this.setState({
       category: data.data
     })
+    console.log(this.state.category)
   }
 
   createItem = () => {
@@ -348,7 +349,7 @@ class GetItems extends React.Component{
                     {this.state.category.map(item=>{
                       return(
                         <React.Fragment>
-                          <option value={item.category_id}>{item.category_name}</option>
+                          <option value={item.id}>{item.name}</option>
                         </React.Fragment>
                       )
                     })
@@ -388,7 +389,7 @@ class GetItems extends React.Component{
                   </InputGroup>
                   <Label for='select' className='text-muted'>Category</Label>
                   <Input type="select" name="category_id" onChange={this.changeInput} id="selectCategory">
-                    {this.state.category.map(item=>{
+                    {/* {this.state.category.map(item=>{
                       return(
                         <React.Fragment>
                           {item.category_id === this.state.category_id ?
@@ -398,7 +399,7 @@ class GetItems extends React.Component{
                         </React.Fragment>
                       )
                     })
-                    }
+                    } */}
                   </Input>
                   <Label for='description' className='text-muted'>Description</Label>
                   <Input name='description' type='textarea' onChange={this.changeInput} value={this.state.description}  />

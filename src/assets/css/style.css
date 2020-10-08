@@ -78,19 +78,20 @@
 }
 
 .fontColor {
-  color: #5F4B8B;
+  color: #DB3022;
 }
 
 .fontColor:hover {
-  color: #443664;
+  color: #91190f;
 }
 
 .btn-1 {
-  background-color: #5F4B8B;
+  background-color: #DB3022;
+  border-width: 0;
 }
 
 .btn-1:hover, .btn-1:focus, .btn-2:hover, .btn-2:focus {
-  background-color: #443664;
+  background-color: #91190f;
 }
 
 .btn-2 {
@@ -105,6 +106,15 @@
 
 .btn-3:hover, .btn-3:focus {
   background-color: #fff;
+}
+
+.card {
+  color: black;
+}
+
+.card:hover {
+  text-decoration: none;
+  border: 2px solid #91190f;
 }
 
 .search-icon {

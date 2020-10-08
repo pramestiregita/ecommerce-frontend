@@ -1,12 +1,12 @@
 export default {
-  login: (data)=>({
+  login: (data) => ({
     type: 'AUTH_USER',
-    payload: data
+    payload: data,
   }),
-  logout: ()=>({
-    type: 'LOGOUT_USER'
+  logout: () => ({
+    type: 'LOGOUT_USER',
   }),
-  clearMessage: ()=>({
-    type: 'CLEAR_MESSAGE'
-  })
-}
+  clearMessage: () => ({
+    type: 'CLEAR_MESSAGE',
+  }),
+};

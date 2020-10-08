@@ -29,7 +29,6 @@ class Login extends React.Component{
       password
     }
     this.props.login(data)
-    this.props.history.push('/homepage')
   }
 
   onChangeText = (e) => {
@@ -38,12 +37,10 @@ class Login extends React.Component{
     })
   }
 
-  componentDidMount() {
-    console.log(this.props.location)
-    if (this.props.location.state) {
-      this.setState(this.props.location.state)
-    }
+  componentDidUpdate() {
+    this.props.auth.isLogin && this.props.history.push('/homepage')
   }
+  
   
 
   render(){
@@ -53,7 +50,6 @@ class Login extends React.Component{
         <Container className='d-flex flex-column vh-100 justify-content-center align-items-center'>
           <div style={{width: 400}}>
             <Alert className='text-center' color={isError?'danger':'success'} isOpen={isError || alertMsg!==''}>{alertMsg}</Alert>
-            <Alert className='text-center' color={this.state.color} isOpen={this.state.alert!==''}>{this.state.alert}</Alert>
           </div>
           <div className='text-center'>
             <div>
@@ -76,9 +72,6 @@ class Login extends React.Component{
               <Link to='/forgot-password' className='fontColor text-decoration-none'>Forgot Password?</Link>
             </div>
             <Button type='submit' className='w-100 mt-3 btn-1 text-uppercase form rounded-pill'>Login</Button>
-            {/* <Link to='/homepage-login'>
-              <Button className='w-100 mt-3 btn-1 text-uppercase form rounded-pill'>Login</Button>
-            </Link> */}
           </Form>
           <div className='mt-3'>
             <span>Don't have an account? <Link to='/register' className='fontColor text-decoration-none'>Register</Link></span>

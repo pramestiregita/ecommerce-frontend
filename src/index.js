@@ -1,16 +1,20 @@
+/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../src/assets/css/style.css'
-import '../src/assets/css/font.css'
+import './assets/css/style.css';
+import './assets/css/font.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+require('dotenv').config();
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
