@@ -1,0 +1,25 @@
+.pict img {
+  object-fit: fill;
+  border-radius: 8px 8px 0 0;
+}
+
+.card-link {
+  color: black;
+}
+
+.card-link:hover {
+  text-decoration: none;
+  color: #91190f;
+}
+
+.delete {
+  background-color: #ffff;
+  color: #DB3022;
+  border-width: 0;
+}
+
+.delete:hover, .delete:focus {
+  background-color: #fff;
+  color: #DB3022;
+  border-width: 0;
+}

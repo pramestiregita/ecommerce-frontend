@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
@@ -33,6 +34,7 @@ export default function App() {
             <PrivateRoute path="/my-cart">
               <Cart />
             </PrivateRoute>
+            {/* <Route path="/my-cart" component={Cart} /> */}
             <Route path="/product/detail" component={ProductDetail} />
             <Route path="/" component={Home} exact />
             <Route path="/category" component={Category} />

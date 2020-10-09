@@ -108,11 +108,11 @@
   background-color: #fff;
 }
 
-.card {
+.card-product {
   color: black;
 }
 
-.card:hover {
+.card-product:hover {
   text-decoration: none;
   border: 2px solid #91190f;
 }
