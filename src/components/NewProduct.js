@@ -21,7 +21,7 @@ export default function NewProduct() {
         </div>
         <Row className="d-flex justify-content-between no-gutters">
           <Col className="m-2" xs="12" lg={{ size: 2, offset: 1 }}>
-            <Link className="card" to="/product/detail/">
+            <Link className="card-product" to="/product/detail/">
               <CardItem />
             </Link>
           </Col>
