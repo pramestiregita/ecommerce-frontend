@@ -20,7 +20,9 @@ import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
-import ProductDetail from './pages/ProductDetail';
+import Checkout from './pages/Checkout';
+import Product from './pages/Product';
+import Profile from './pages/Profile';
 
 export default function App() {
   return (
@@ -34,8 +36,14 @@ export default function App() {
             <PrivateRoute path="/my-cart">
               <Cart />
             </PrivateRoute>
-            {/* <Route path="/my-cart" component={Cart} /> */}
-            <Route path="/product/detail" component={ProductDetail} />
+            <PrivateRoute path="/my-profile">
+              <Profile />
+            </PrivateRoute>
+            <PrivateRoute path="/checkout">
+              <Checkout />
+            </PrivateRoute>
+            {/* <Route path="/checkout" component={Checkout} /> */}
+            <Route path="/product/detail/:id" component={Product} />
             <Route path="/" component={Home} exact />
             <Route path="/category" component={Category} />
             <Route path="/items" component={Items} />
