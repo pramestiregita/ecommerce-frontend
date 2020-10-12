@@ -35,7 +35,7 @@ class NewProduct extends Component {
           <Row className="d-flex justify-content-between no-gutters">
             {popular.map((item) => (
               <Col className="m-2" xs="12" lg={{ size: 2, offset: 1 }}>
-                <Link to={`product/detail/${item.id}`}>
+                <Link className="card-product" to={`product/detail/${item.id}`}>
                   <CardItem
                     image={item.image}
                     name={item.name}

@@ -35,7 +35,7 @@ class NewProduct extends Component {
           <Row className="d-flex justify-content-between no-gutters">
             {newest.map((item, i) => (
               <Col className="m-2" xs="12" md={{ size: 2, offset: ((i + 5) % 5 === 0 ? 1 : 0) }}>
-                <Link to={`product/detail/${item.id}`}>
+                <Link className="card-product" to={`product/detail/${item.id}`}>
                   <CardItem
                     image={item.image}
                     name={item.name}
