@@ -32,6 +32,10 @@ export default function Profile() {
   if (data.length) {
     user = data[0];
   }
+  const updateAvatar = (e) => {
+    e.preventDefault();
+  };
+
   // console.log(user[0].name);
   return (
     <>
@@ -172,7 +176,7 @@ export default function Profile() {
                       <div className="h-50" style={{ backgroundColor: '#D4D4D4', width: 2 }}>&nbsp;</div>
                     </Col>
                     <Col md={3} className="pr-5">
-                      <Form className="d-flex flex-column align-items-center">
+                      <Form onSubmit={() => updateAvatar()} className="d-flex flex-column align-items-center">
                         <div>
                           <img className="rounded-circle" src={avatar} alt="avatar" width="110px" height="110px" />
                         </div>

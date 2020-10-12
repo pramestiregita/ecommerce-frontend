@@ -31,6 +31,16 @@ class Cart extends Component {
     this.props.getCart(this.state.token);
   }
 
+  buy = () => {
+    const location = {
+      pathname: '/customer/checkout',
+      state: {
+        location: this.props.location.pathname
+      }
+    }
+    this.props.history.replace('/checkout')
+  }
+
   render() {
     const { data: cart, summary } = this.props.cart;
     return (
@@ -89,7 +99,7 @@ class Cart extends Component {
                       </div>
                     </div>
                     <div className="buy mt-3">
-                      <Button className="btn-1 w-100 rounded-pill">Buy</Button>
+                      <Button onClick={() => this.buy()} className="btn-1 w-100 rounded-pill">Buy</Button>
                     </div>
                   </Container>
                 </Card>

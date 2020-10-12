@@ -44,7 +44,8 @@ class GetItems extends React.Component{
       sort: 'name',
       sortBy: '',
       page: 1,
-      limit: 5
+      limit: 5,
+      pages: 0
     }
   }
 
@@ -60,12 +61,13 @@ class GetItems extends React.Component{
     this.setState({
       data: data.data,
       message: data.message,
-      count: data.pageInfo.count,
+      count: data.pageInfo.totalData,
       currentPage: data.pageInfo.currentPage,
-      pages: data.pageInfo.pages,
+      pages: data.pageInfo.totalPage,
       prevLink: data.pageInfo.prevLink,
       nextLink: data.pageInfo.nextLink
     })
+    console.log(this.state.pages)
   }
 
   showData = async()=>{
@@ -230,7 +232,7 @@ class GetItems extends React.Component{
               <Col lg='2'>
                 <Form onSubmit={this.searchData}>
                   <ButtonGroup>
-                    <Button className='asc btn-1 border-0' onClick={()=>this.setState({sortBy: 'asc'})} name='sortBy' value='desc' type='submit' >
+                    <Button className='asc btn-1 border-0' onClick={()=>this.setState({sortBy: 'asc'})} name='sortBy' value='asc' type='submit' >
                       <img src={asc} alt='...' />
                     </Button>
                     <Button className='desc btn-1 border-0' onClick={()=>this.setState({sortBy: 'desc'})} name='sortBy' value='desc' type='submit' >
@@ -308,24 +310,27 @@ class GetItems extends React.Component{
                 <InputGroup>
                   <InputGroupAddon>
                     {this.state.currentPage > 1 ? 
-                      <Button className='asc btn-1 border-0' onClick={()=>this.setState({page: this.state.currentPage-1})} name='page' value='desc' type='submit' addonType="prepend" aria-label='Page'>
+                      <Button className='asc btn-1 border-0' onClick={()=>this.setState({page: this.state.currentPage-1})} name='page' value='prev' type='submit' addonType="prepend" aria-label='Page'>
                         <img src={prev} alt='...' />
                       </Button> :
-                      <Button disabled className='asc btn-1 border-0' name='page' value='desc' type='submit' addonType="prepend" aria-label='Page'>
+                      <Button disabled className='asc btn-1 border-0' name='page' value='prev' type='submit' addonType="prepend" aria-label='Page'>
                         <img src={prev} alt='...' />
                       </Button>
                     }
                   </InputGroupAddon>
                   <Input name='page' onChange={this.changeInput} value={this.state.currentPage} aria-label='Page'/>
                   <InputGroupAddon>
-                    {this.state.currentPage < this.state.pages ? 
-                      <Button className='desc btn-1 border-0' onClick={()=>this.setState({page: this.state.currentPage+1})} name='page' value='desc' type='submit' addonType="prepend" aria-label='Page'>
-                        <img src={next} alt='...' />
-                      </Button> :
-                      <Button disabled className='desc btn-1 border-0' name='page' value='desc' type='submit' addonType="prepend" aria-label='Page'>
+                      <Button className='desc btn-1 border-0' onClick={()=>this.setState({page: this.state.currentPage+1})} name='page' value='next' type='submit' addonType="prepend" aria-label='Page'>
                         <img src={next} alt='...' />
                       </Button>
-                    }
+                    {/* {this.state.currentPage < this.state.pages ? 
+                      <Button className='desc btn-1 border-0' onClick={()=>this.setState({page: this.state.currentPage+1})} name='page' value='next' type='submit' addonType="prepend" aria-label='Page'>
+                        <img src={next} alt='...' />
+                      </Button> :
+                      <Button disabled className='desc btn-1 border-0' name='page' value='next' type='submit' addonType="prepend" aria-label='Page'>
+                        <img src={next} alt='...' />
+                      </Button>
+                    } */}
                   </InputGroupAddon>
                 </InputGroup>
               </Form>
