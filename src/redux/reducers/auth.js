@@ -1,24 +1,33 @@
 const initialState = {
   isLogin: false,
   isError: false,
+  token: '',
   alertMsg: '',
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'AUTH_USER': {
-      const { email, password } = action.payload;
-      if (email === 'admin@mail.com' && password === '4321') {
-        return {
-          isLogin: true,
-          isError: false,
-          alertMsg: 'Login Succesfully!',
-        };
-      }
+    case 'AUTH_USER_PENDING': {
       return {
-        isLogin: false,
+        ...state,
+        isLoading: true,
+      };
+    }
+    case 'AUTH_USER_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
         isError: true,
-        alertMsg: 'Wrong email or password',
+        alertMsg: 'Unexpected error occurred',
+      };
+    }
+    case 'AUTH_USER_FULFILLED': {
+      return {
+        ...state,
+        token: action.payload.data.token,
+        isLoading: false,
+        isLogin: true,
+        alertMsg: 'Successfully login',
       };
     }
     case 'LOGOUT_USER': {
