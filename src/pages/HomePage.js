@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable import/no-named-as-default-member */
