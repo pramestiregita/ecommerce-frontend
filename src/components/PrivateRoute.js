@@ -19,7 +19,7 @@ class PrivateRoute extends Component {
           if (this.props.auth.isLogin) {
             return childWithProps;
           }
-          return <Redirect to={{ pathname: '/login', state: { alert: 'Login first!', color: 'danger' } }} />;
+          return <Redirect to={{ pathname: '/login', state: { alert: 'Login first!', color: 'danger', location: this.props.location.pathname } }} />;
         }
       }
       />

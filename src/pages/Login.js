@@ -36,9 +36,9 @@ class Login extends React.Component{
       [e.target.name]: e.target.value
     })
   }
-
+  
   componentDidUpdate() {
-    this.props.auth.isLogin && this.props.history.push('/homepage')
+    this.props.auth.isLogin && this.props.history.push(this.props.location.state.location)
   }
   
   
