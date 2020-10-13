@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable max-len */
 /* eslint-disable react/destructuring-assignment */
@@ -23,6 +24,10 @@ export default class NavigationBar extends React.Component {
       navbarOpen: false,
     };
   }
+
+  // componentDidMount() {
+  //   console.log(this.props.location.pathname);
+  // }
 
   render() {
     return (

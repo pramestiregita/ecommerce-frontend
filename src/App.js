@@ -31,7 +31,7 @@ export default function App() {
         <BrowserRouter>
           <Switch>
             <Route path="/homepage" component={HomePage} />
-            <Route path="/login" component={Login} />
+            <Route path="/login" render={(props) => <Login {...props} />} />
             <Route path="/register" component={Register} />
             <PrivateRoute path="/my-cart">
               <Cart />

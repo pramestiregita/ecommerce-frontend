@@ -16,11 +16,11 @@ import CategorySlide from '../components/CategorySlide';
 import NewProduct from '../components/NewProduct';
 import PopularProduct from '../components/PopularProduct';
 
-export default function HomePage() {
+export default function HomePage(props) {
   const { isLogin } = useSelector((state) => state.auth);
   return (
     <>
-      {isLogin ? <Navbar2 /> : <Navbar1 />}
+      {isLogin ? <Navbar2 /> : <Navbar1 {...props} />}
       <Container className="mb-5">
         <CarouselComp />
         <CategorySlide />

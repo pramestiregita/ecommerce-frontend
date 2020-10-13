@@ -43,6 +43,28 @@ export default (state = initialState, action) => {
         alertMsg: '',
       };
     }
+    case 'SIGN_UP_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case 'SIGN_UP_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        alertMsg: action.payload.response.data.message,
+      };
+    }
+    case 'SIGN_UP_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        alertMsg: 'Create user successfully',
+      };
+    }
     default: {
       return state;
     }
