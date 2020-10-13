@@ -6,9 +6,12 @@ import React from 'react';
 import {
   Container, Collapse, Navbar, NavbarBrand,
   Nav, NavbarToggler, NavItem, Row, Col,
-  Input, Button,
+  Input, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import auth from '../redux/actions/auth'
 
 // importing images
 import logo from '../assets/images/logo.svg';
@@ -19,12 +22,22 @@ import bell from '../assets/images/bell.svg';
 import mail from '../assets/images/mail.svg';
 import profile from '../assets/images/profile.jpg';
 
-export default class NavigationBar extends React.Component {
+class NavigationBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       navbarOpen: false,
+      dropdownOpen: false,
     };
+  }
+
+  toggle = () => {
+    this.setState({dropdownOpen: !this.state.dropdownOpen})
+  }
+
+  setLogout = () => {
+    console.log('logout')
+    this.props.logout()
   }
 
   render() {
@@ -110,9 +123,21 @@ export default class NavigationBar extends React.Component {
                       <Col xs="3 text-center" lg="3">
                         <Nav navbar className="w-100">
                           <NavItem className="w-100">
-                            <Link to="/my-profile">
-                              <img className="rounded-circle" src={profile} alt="Profile" />
-                            </Link>
+                            <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                              <DropdownToggle caret className='btn-4'>
+                                <img className="rounded-circle" src={profile} alt="Profile" />
+                              </DropdownToggle>
+                              <DropdownMenu>
+                                <DropdownItem>
+                                  <Link to="/my-profile" className='linkColor'>
+                                    My Profile
+                                  </Link>
+                                </DropdownItem>
+                                <DropdownItem onClick={this.setLogout}>
+                                  Logout
+                                </DropdownItem>
+                              </DropdownMenu>
+                            </ButtonDropdown>
                           </NavItem>
                         </Nav>
                       </Col>
@@ -127,3 +152,13 @@ export default class NavigationBar extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
+
+const mapDispatchToProps = {
+  logout: auth.logout
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar)

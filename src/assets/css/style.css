@@ -83,6 +83,16 @@
 
 .fontColor:hover {
   color: #91190f;
+  text-decoration: none;
+}
+
+.linkColor {
+  color: black;
+}
+
+.linkColor:hover {
+  color: black;
+  text-decoration: none;
 }
 
 .btn-1 {
@@ -106,6 +116,15 @@
 
 .btn-3:hover, .btn-3:focus {
   background-color: #fff;
+}
+
+.btn-4, .btn-4:hover {
+  background-color: #f8f9fa;
+  border-width: 0;
+}
+
+.btn-4:focus {
+  background-color: #91190f !important;
 }
 
 .card-product {
