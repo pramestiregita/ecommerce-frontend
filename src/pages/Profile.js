@@ -85,9 +85,6 @@ export default function Profile() {
     }
   };
 
-  // useEffect(() => {
-  // }, [token, form]);
-
   return (
     <>
       <div className="vh-100">
