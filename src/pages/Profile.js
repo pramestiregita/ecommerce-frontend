@@ -6,6 +6,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import '../assets/css/profile.css';
 import {
   Button,
@@ -13,12 +14,10 @@ import {
 } from 'reactstrap';
 
 // importing images
-import picture from '../assets/images/profile2.jpg';
 import edit from '../assets/images/edit.svg';
 import account from '../assets/images/user.svg';
 import map from '../assets/images/map.svg';
 import order from '../assets/images/order.svg';
-import avatar from '../assets/images/profile3.jpg';
 
 // importing components
 import Navbar from '../components/Navbar2';
@@ -49,9 +48,6 @@ export default function Profile() {
       setGender(data[0].gender);
       setImage(data[0].profile_picture);
     }
-    // if (alertMsg !== '') {
-    //   setAlertOpen(true);
-    // }
   }, [data]);
   useEffect(() => {
     dispatch(profileAction.getProfile(token));
@@ -101,7 +97,7 @@ export default function Profile() {
             <div className="sidebar mt-5">
               <Row>
                 <Col md={4}>
-                  <img className="rounded-circle" src={picture} alt="avatar" />
+                  <img className="rounded-circle" src={REACT_APP_BACKEND_URL.concat(image)} alt="avatar" width="60px" height="60px" />
                 </Col>
                 <Col md={8}>
                   <div>{name}</div>
@@ -115,36 +111,42 @@ export default function Profile() {
                   </div>
                 </Col>
               </Row>
-              <Row className="user d-flex align-items-center mt-5">
-                <Col md={3}>
-                  <Button>
-                    <img src={account} alt="" />
-                  </Button>
-                </Col>
-                <Col>
-                  <span>My Account</span>
-                </Col>
-              </Row>
-              <Row className="map d-flex align-items-center mt-3">
-                <Col md={3}>
-                  <Button>
-                    <img src={map} alt="" />
-                  </Button>
-                </Col>
-                <Col>
-                  <span>Shipping Address</span>
-                </Col>
-              </Row>
-              <Row className="order d-flex align-items-center mt-3">
-                <Col md={3}>
-                  <Button>
-                    <img src={order} alt="" />
-                  </Button>
-                </Col>
-                <Col>
-                  <span>My Order</span>
-                </Col>
-              </Row>
+              <Link to="/my-profile" className="linkColor">
+                <Row className="user d-flex align-items-center mt-5">
+                  <Col md={3}>
+                    <Button>
+                      <img src={account} alt="" />
+                    </Button>
+                  </Col>
+                  <Col>
+                    <span>My Account</span>
+                  </Col>
+                </Row>
+              </Link>
+              <Link to="/my-address" className="linkColor">
+                <Row className="map d-flex align-items-center mt-3">
+                  <Col md={3}>
+                    <Button>
+                      <img src={map} alt="" />
+                    </Button>
+                  </Col>
+                  <Col>
+                    <span>Shipping Address</span>
+                  </Col>
+                </Row>
+              </Link>
+              <Link to="/my-order" className="linkColor">
+                <Row className="order d-flex align-items-center mt-3">
+                  <Col md={3}>
+                    <Button>
+                      <img src={order} alt="" />
+                    </Button>
+                  </Col>
+                  <Col>
+                    <span>My Order</span>
+                  </Col>
+                </Row>
+              </Link>
             </div>
           </Col>
           <Col md={9}>
