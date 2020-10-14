@@ -24,12 +24,12 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Product from './pages/Product';
 import Profile from './pages/Profile';
+import Address from './pages/Address';
 
 import authAction from './redux/actions/auth';
 
 export class App extends Component {
   componentDidMount() {
-    console.log(this.props);
     if (localStorage.getItem('token')) {
       this.props.setToken(localStorage.getItem('token'));
     }
@@ -49,10 +49,12 @@ export class App extends Component {
             <PrivateRoute path="/my-profile">
               <Profile />
             </PrivateRoute>
+            <PrivateRoute path="/my-address">
+              <Address />
+            </PrivateRoute>
             <PrivateRoute path="/checkout">
               <Checkout />
             </PrivateRoute>
-            {/* <Route path="/checkout" component={Checkout} /> */}
             <Route path="/product/detail/:id" component={Product} />
             <Route path="/" component={Home} exact />
             <Route path="/category" component={Category} />

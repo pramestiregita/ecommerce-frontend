@@ -8,7 +8,7 @@ import {
   Nav, NavbarToggler, NavItem, Row, Col,
   Input, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem,
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import auth from '../redux/actions/auth'
@@ -37,7 +37,10 @@ class NavigationBar extends React.Component {
 
   setLogout = () => {
     this.props.logout() 
-    // && this.props.history.replace('/login')
+    // this.props.history.replace('/login')
+    return(
+      <Link to='/login' />
+    )
   }
 
   render() {
