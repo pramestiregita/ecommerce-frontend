@@ -1,7 +1,7 @@
 import http from '../../helpers/http';
 
 export default {
-  addCart: (token) => ({
+  checkout: (token) => ({
     type: 'CHECKOUT',
     payload: http(token).post('customer/checkout'),
   }),

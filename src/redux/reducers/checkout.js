@@ -19,13 +19,14 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: true,
-        alertMsg: 'There is an error at request data',
+        alertMsg: '',
       };
     }
     case 'CHECKOUT_FULFILLED': {
       return {
         ...state,
         isLoading: false,
+        alertMsg: action.payload.data.message,
       };
     }
     case 'GET_CHECKOUT_PENDING': {

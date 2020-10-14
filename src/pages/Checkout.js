@@ -3,13 +3,14 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  Button,
-  Card,
-  Col,
-  Container, Form, Row,
+  Alert,
+  Button, Card, Col, Container, Form, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row,
 } from 'reactstrap';
 import numeral from 'numeral';
 import { connect } from 'react-redux';
+import { FaTimes } from 'react-icons/fa'
+import '../assets/css/checkout.css'
+
 import cartAction from '../redux/actions/cart';
 import checkoutAction from '../redux/actions/checkout';
 
@@ -17,28 +18,112 @@ import checkoutAction from '../redux/actions/checkout';
 import Navbar from '../components/Navbar2';
 import CardCheckout from '../components/CardCheckout';
 
+import shoppay from '../assets/images/logo.svg'
+
 class Checkout extends Component {
   constructor(props) {
     super(props);
     this.state = {
       token: this.props.auth.token,
       delivery: 10000,
+      modalOpen: false,
+      alertMsg: '',
+      alertOpen: false
     };
   }
 
   componentDidMount() {
     this.props.getCart(this.state.token);
   }
+  
+
+  payment = () => {
+    this.setState({
+      modalOpen: true
+    })
+  }
 
   buy = () => {
-    console.log(this.state.token)
-    this.props.addCart(this.state.token)
+    console.log('buy')
+    this.props.buy(this.state.token)
+    this.setState({
+      modalOpen: false,
+      alertOpen: true
+    })
   }
 
   render() {
     const { data: cart, summary } = this.props.cart;
+    const total = summary + this.state.delivery
+    const { alertMsg } = this.props.checkout
     return (
       <>
+        <Modal centered isOpen={this.state.modalOpen} style={{width: 450}}>
+          <ModalHeader className='d-flex'>
+            <Button onClick={()=>this.setState({modalOpen: false})}><FaTimes /></Button>
+            <span className='ml-3 h4 font-weight-bold'>Payment</span>
+          </ModalHeader>
+          <ModalHeader>
+            <div className='w-100'>
+              <div className='small font-weight-bold'>Payment Method</div>
+              <Row className='d-flex align-items-center w-100 m-0 mt-2'>
+                <Col md={4}>
+                  <div className='payment w-100'>
+                    <img src={shoppay} alt='shoppay' />
+                  </div>
+                </Col>
+                <Col md={6}>
+                  <span className='h6 font-weight-bold'>ShopPay</span>
+                </Col>
+                <Col md={2} className='d-flex justify-content-center'>
+                  <Input className='m-0 position-relative' type='checkbox' />
+                </Col>
+              </Row>
+            </div>
+          </ModalHeader>
+          <ModalBody style={{height: 250}}>
+            <div className='h6 font-weight-bold'>Shopping Summary</div>
+            <Row>
+              <Col md={6}>
+                <span className='text-muted'>Order</span>
+              </Col>
+              <Col md={6} className='text-right'>
+                <span className="h6 font-weight-bold">
+                  Rp.
+                  {numeral(summary).format(0, 0).toString().replace(',', '.')
+                    .replace(',', '.')}
+                </span>
+              </Col>
+              <Col md={6}>
+                <span className='text-muted'>Delivery</span>
+              </Col>
+              <Col md={6} className='text-right'>
+                <span className="h6 font-weight-bold">
+                  Rp.
+                  {numeral(this.state.delivery).format(0, 0).toString().replace(',', '.')
+                    .replace(',', '.')}
+                </span>
+              </Col>
+            </Row>
+          </ModalBody>
+          <ModalFooter>
+            <Row className='w-100'>
+              <Col md={6}>
+                <div className='h6 font-weight-bold'>Shopping Summary</div>
+                <div>
+                  <span className="h5 font-weight-bold text-danger">
+                    Rp.
+                    {numeral(total).format(0, 0).toString().replace(',', '.')
+                      .replace(',', '.')}
+                  </span>
+                </div>
+              </Col>
+              <Col md={6} className='d-flex align-items-center'>
+                <Button onClick={()=>this.buy()} block className='btn-1 rounded-pill'>Buy</Button>
+              </Col>
+            </Row>
+          </ModalFooter>
+        </Modal>
         <Navbar />
         <Container className="my-5 d-flex flex-column">
           <div>
@@ -85,7 +170,7 @@ class Checkout extends Component {
                         <span>Order</span>
                       </div>
                       <div>
-                        <span className="h5 font-weight-bold">
+                        <span className="h6 font-weight-bold">
                           Rp.
                           {numeral(summary).format(0, 0).toString().replace(',', '.')
                             .replace(',', '.')}
@@ -97,7 +182,7 @@ class Checkout extends Component {
                         <span>Delivery</span>
                       </div>
                       <div>
-                        <span className="h5 font-weight-bold">
+                        <span className="h6 font-weight-bold">
                           Rp.
                           {numeral(this.state.delivery).format(0, 0).toString().replace(',', '.')
                             .replace(',', '.')}
@@ -109,17 +194,18 @@ class Checkout extends Component {
                       <span>Shopping Summary</span>
                     </div>
                     <div className="mt-2 d-flex justify-content-end">
-                      <span className="h5 font-weight-bold">
+                      <span className="h6 font-weight-bold text-danger">
                         Rp.
-                        {numeral(summary + this.state.delivery).format(0, 0).toString().replace(',', '.')
+                        {numeral(total).format(0, 0).toString().replace(',', '.')
                           .replace(',', '.')}
                       </span>
                     </div>
                     <div className="buy mt-3">
-                      <Button onClick={() => this.buy()} className="btn-1 w-100 rounded-pill">Buy</Button>
+                      <Button onClick={() => this.payment()} className="btn-1 w-100 rounded-pill">Select Payment</Button>
                     </div>
                   </Container>
                 </Card>
+                <Alert isOpen={this.state.alertOpen}>{alertMsg}</Alert>
               </Col>
             </Row>
           </div>
@@ -132,11 +218,12 @@ class Checkout extends Component {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   cart: state.cart,
+  checkout: state.checkout
 });
 
 const mapDispatchToProps = {
   getCart: cartAction.getCart,
-  addCart: checkoutAction.addCart,
+  buy: checkoutAction.checkout,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

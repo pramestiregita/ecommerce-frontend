@@ -53,7 +53,7 @@ export class Product extends Component {
       this.props.addCart(this.state.token, cart)
       setTimeout(()=>{
         this.props.clearMsg()
-      },1000)
+      },2000)
     }
   }
 

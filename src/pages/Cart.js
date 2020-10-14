@@ -32,12 +32,6 @@ class Cart extends Component {
   }
 
   buy = () => {
-    const location = {
-      pathname: '/customer/checkout',
-      state: {
-        location: this.props.location.pathname
-      }
-    }
     this.props.history.replace('/checkout')
   }
 
