@@ -36,8 +36,8 @@ class NavigationBar extends React.Component {
   }
 
   setLogout = () => {
-    console.log('logout')
-    this.props.logout()
+    this.props.logout() 
+    // && this.props.history.replace('/login')
   }
 
   render() {

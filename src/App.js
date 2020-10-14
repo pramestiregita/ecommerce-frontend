@@ -1,13 +1,14 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-
-import store from './redux/store';
 
 // importing components
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PrivateRoute from './components/PrivateRoute';
 
 // importing pages
@@ -24,10 +25,19 @@ import Checkout from './pages/Checkout';
 import Product from './pages/Product';
 import Profile from './pages/Profile';
 
-export default function App() {
-  return (
-    <>
-      <Provider store={store}>
+import authAction from './redux/actions/auth';
+
+export class App extends Component {
+  componentDidMount() {
+    console.log(this.props);
+    if (localStorage.getItem('token')) {
+      this.props.setToken(localStorage.getItem('token'));
+    }
+  }
+
+  render() {
+    return (
+      <>
         <BrowserRouter>
           <Switch>
             <Route path="/homepage" component={HomePage} />
@@ -50,7 +60,17 @@ export default function App() {
             <Route path="/users" component={Users} />
           </Switch>
         </BrowserRouter>
-      </Provider>
-    </>
-  );
+      </>
+    );
+  }
 }
+
+const mapStateToProps = (state) => ({
+
+});
+
+const mapDispatchToProps = {
+  setToken: authAction.setToken,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,11 +1,15 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable max-len */
+/* eslint-disable import/no-named-as-default */
+/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import '../assets/css/profile.css';
 import {
   Button,
-  Card, Col, Form, Input, Jumbotron, Label, Row,
+  Card, Col, Form, FormText, Input, Jumbotron, Label, Modal, ModalBody, ModalFooter, Row,
 } from 'reactstrap';
 
 // importing images
@@ -21,22 +25,73 @@ import Navbar from '../components/Navbar2';
 
 import profileAction from '../redux/actions/profile';
 
+const { REACT_APP_BACKEND_URL } = process.env;
+
 export default function Profile() {
+  const [image, setImage] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+  const [gender, setGender] = useState('');
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [body, setBody] = useState({});
   const token = useSelector((state) => state.auth.token);
-  const data = useSelector((state) => state.profile.data);
+  const { data, alertMsg } = useSelector((state) => state.profile);
+  const form = new FormData();
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (data.length) {
+      setName(data[0].name);
+      setEmail(data[0].email);
+      setPhone(data[0].phone);
+      setBirthdate(data[0].birthdate);
+      setGender(data[0].gender);
+      setImage(data[0].profile_picture);
+    }
+    // if (alertMsg !== '') {
+    //   setAlertOpen(true);
+    // }
+  }, [data]);
   useEffect(() => {
     dispatch(profileAction.getProfile(token));
   }, [dispatch, token]);
-  let user = {};
-  if (data.length) {
-    user = data[0];
-  }
-  const updateAvatar = (e) => {
+
+  const saveChange = (e) => {
     e.preventDefault();
+    let genderId = 0;
+    if (gender === 'Male') {
+      genderId = 1;
+    } else {
+      genderId = 2;
+    }
+    setBody({
+      name,
+      email,
+      phone,
+      genderId,
+      birthdate,
+    });
   };
 
-  // console.log(user[0].name);
+  useEffect(() => {
+    dispatch(profileAction.editProfile(token, body));
+    if (alertMsg !== '') {
+      setAlertOpen(true);
+    }
+  }, [token, body]);
+
+  const uploadPict = (e) => {
+    form.append('picture', e.target.files[0]);
+    dispatch(profileAction.editPict(token, form));
+    if (data.length) {
+      setImage(data[0].profile_picture);
+    }
+  };
+
+  // useEffect(() => {
+  // }, [token, form]);
+
   return (
     <>
       <div className="vh-100">
@@ -49,7 +104,7 @@ export default function Profile() {
                   <img className="rounded-circle" src={picture} alt="avatar" />
                 </Col>
                 <Col md={8}>
-                  <div>{user.name}</div>
+                  <div>{name}</div>
                   <div className="edit d-flex align-items-center">
                     <div className="icon">
                       <img src={edit} alt="..." width="16px" height="16px" />
@@ -101,13 +156,13 @@ export default function Profile() {
                   <div className="my-3" style={{ backgroundColor: '#D4D4D4', height: 2 }}>&nbsp;</div>
                   <Row className="mt-4">
                     <Col md={8}>
-                      <Form>
+                      <Form onSubmit={saveChange}>
                         <Row className="d-flex align-items-center mb-4">
                           <Col md={4} className="text-right">
                             <Label className="m-0 text-muted" for="name">Name</Label>
                           </Col>
                           <Col>
-                            <Input className="rounded-lg" type="text" name="name" value={user.name} style={{ height: 48 }} />
+                            <Input onChange={(e) => setName(e.target.value)} className="rounded-lg" type="text" name="name" value={name} style={{ height: 48 }} />
                           </Col>
                         </Row>
                         <Row className="d-flex align-items-center my-4">
@@ -115,7 +170,7 @@ export default function Profile() {
                             <Label className="m-0 text-muted" for="email">Email</Label>
                           </Col>
                           <Col>
-                            <Input className="rounded-lg" type="text" name="email" value={user.email} style={{ height: 48 }} />
+                            <Input onChange={(e) => setEmail(e.target.value)} className="rounded-lg" type="text" name="email" value={email} style={{ height: 48 }} />
                           </Col>
                         </Row>
                         <Row className="d-flex align-items-center my-4">
@@ -123,7 +178,7 @@ export default function Profile() {
                             <Label className="m-0 text-muted" for="phone">Phone Number</Label>
                           </Col>
                           <Col>
-                            <Input className="rounded-lg" type="text" name="phone" value={user.phone} style={{ height: 48 }} />
+                            <Input onChange={(e) => setPhone(e.target.value)} className="rounded-lg" type="text" name="phone" value={phone} style={{ height: 48 }} />
                           </Col>
                         </Row>
                         <Row className="d-flex align-items-center my-4">
@@ -132,22 +187,12 @@ export default function Profile() {
                           </Col>
                           <Col>
                             <Row className="ml-2">
-                              <Col md={4} className="d-flex">
-                                <div>
-                                  <Input type="radio" name="gender" />
-                                </div>
-                                <div>
-                                  <Label className="m-0 text-muted">Laki-laki</Label>
-                                </div>
-                              </Col>
-                              <Col className="d-flex">
-                                <div>
-                                  <Input type="radio" name="gender" />
-                                </div>
-                                <div>
-                                  <Label className="m-0 text-muted">Perempuan</Label>
-                                </div>
-                              </Col>
+                              {['Male', 'Female'].map((item, i) => (
+                                <Label className={i === 0 ? 'ml-3' : 'ml-5'}>
+                                  <Input onChange={() => setGender(item)} name="gender" type="radio" checked={item === gender} />
+                                  <span>{item}</span>
+                                </Label>
+                              ))}
                             </Row>
                           </Col>
                         </Row>
@@ -157,16 +202,26 @@ export default function Profile() {
                           </Col>
                           <Col>
                             <Input
-                              type="date"
+                              onChange={(e) => setBirthdate(e.target.value)}
+                              type="text"
                               name="date"
+                              placeholder="date"
+                              value={birthdate}
                             />
+                            <FormText color="muted">format: yyyy-mm-dd</FormText>
                           </Col>
                         </Row>
                         <Row className="d-flex align-items-center my-5">
-                          <Col md={4} className="text-right">
-                          &nbsp;
-                          </Col>
-                          <Col>
+                          <Col md={4} className="text-right" />
+                          <Col md={8}>
+                            <Modal centered isOpen={alertOpen} className="text-center">
+                              <ModalBody>
+                                {alertMsg}
+                              </ModalBody>
+                              <ModalFooter>
+                                <Button onClick={() => setAlertOpen(false)}>Close</Button>
+                              </ModalFooter>
+                            </Modal>
                             <Button type="submit" className="btn-1 rounded-pill" style={{ width: 100 }}>Save</Button>
                           </Col>
                         </Row>
@@ -176,12 +231,16 @@ export default function Profile() {
                       <div className="h-50" style={{ backgroundColor: '#D4D4D4', width: 2 }}>&nbsp;</div>
                     </Col>
                     <Col md={3} className="pr-5">
-                      <Form onSubmit={() => updateAvatar()} className="d-flex flex-column align-items-center">
+                      <Form className="d-flex flex-column align-items-center">
                         <div>
-                          <img className="rounded-circle" src={avatar} alt="avatar" width="110px" height="110px" />
+                          <img className="rounded-circle" src={REACT_APP_BACKEND_URL.concat(image)} alt="avatar" width="110px" height="110px" />
                         </div>
                         <div className="my-4">
-                          <Button type="submit" className="btn-2 rounded-pill" style={{ width: 140 }}>Select Image</Button>
+                          {/* <Button type="submit" className="btn-2 rounded-pill" style={{ width: 140 }}>Select Image</Button> */}
+                          <label>
+                            <span className="btn btn-2 rounded-pill">Select Image</span>
+                            <Input onChange={uploadPict} style={{ display: 'none' }} type="file" accept=".jpg,.png" />
+                          </label>
                         </div>
                       </Form>
                     </Col>

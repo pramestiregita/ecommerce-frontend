@@ -16,7 +16,7 @@ class PrivateRoute extends Component {
             }
             return child;
           });
-          if (this.props.auth.isLogin) {
+          if (this.props.auth.isLogin && this.props.auth.token) {
             return childWithProps;
           }
           return (

@@ -18,10 +18,11 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: true,
-        alertMsg: 'Unexpected error occurred',
+        alertMsg: action.payload.response.data.message,
       };
     }
     case 'AUTH_USER_FULFILLED': {
+      localStorage.setItem('token', action.payload.data.token);
       return {
         ...state,
         token: action.payload.data.token,
@@ -31,10 +32,19 @@ export default (state = initialState, action) => {
       };
     }
     case 'LOGOUT_USER': {
+      localStorage.removeItem('token');
       return {
         isLogin: false,
         isError: false,
+        token: '',
         alertMsg: 'Logout Successfully',
+      };
+    }
+    case 'SET_TOKEN': {
+      return {
+        ...state,
+        isLogin: true,
+        token: action.payload,
       };
     }
     case 'CLEAR_MESSAGE': {

@@ -13,4 +13,8 @@ export default {
     type: 'SIGN_UP',
     payload: http().post('auth/register/customer', qs.stringify(data)),
   }),
+  setToken: (payload) => ({
+    type: 'SET_TOKEN',
+    payload,
+  }),
 };

@@ -102,6 +102,7 @@
 
 .btn-1:hover, .btn-1:focus, .btn-2:hover, .btn-2:focus {
   background-color: #91190f;
+  color: #fff;
 }
 
 .btn-2 {
