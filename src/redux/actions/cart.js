@@ -10,4 +10,7 @@ export default {
     type: 'GET_CART',
     payload: http(token).get('customer/cart'),
   }),
+  clearMessage: () => ({
+    type: 'CLEAR_MESSAGE',
+  }),
 };

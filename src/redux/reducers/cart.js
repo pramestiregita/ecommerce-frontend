@@ -19,13 +19,14 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: true,
-        alertMsg: 'There is an error at request data',
+        alertMsg: 'Login First',
       };
     }
     case 'ADD_CART_FULFILLED': {
       return {
         ...state,
         isLoading: false,
+        alertMsg: action.payload.data.message,
       };
     }
     case 'GET_CART_PENDING': {
@@ -39,7 +40,7 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: true,
-        alertMsg: 'There is an error at request data',
+        // alertMsg: 'There is an error at request data',
       };
     }
     case 'GET_CART_FULFILLED': {
@@ -48,6 +49,12 @@ export default (state = initialState, action) => {
         isLoading: false,
         data: action.payload.data.results,
         summary: action.payload.data.summary,
+      };
+    }
+    case 'CLEAR_MESSAGE': {
+      return {
+        ...state,
+        alertMsg: '',
       };
     }
     default: {

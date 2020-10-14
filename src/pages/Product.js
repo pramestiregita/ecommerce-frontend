@@ -6,9 +6,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
 import {
-  Button, Col, Container, Row,
+  Button, Col, Container, Modal, ModalBody, Row,
 } from 'reactstrap';
-import qs from 'querystring';
 
 import productAction from '../redux/actions/product';
 import cartAction from '../redux/actions/cart';
@@ -50,15 +49,18 @@ export class Product extends Component {
         }
       }
       this.props.history.replace(location)
-      console.log(this.props.location.pathname)
     } else {
       this.props.addCart(this.state.token, cart)
+      setTimeout(()=>{
+        this.props.clearMsg()
+      },1000)
     }
   }
 
   render() {
     const { isLogin } = this.props.auth;
     const { data } = this.props.product;
+    const { alertMsg } = this.props.cart
     let results = {};
     if (data.length) {
       results = data[0];
@@ -67,6 +69,11 @@ export class Product extends Component {
       <>
         {isLogin ? <Navbar2 /> : <Navbar1 />}
         <Container className="mt-4">
+          <Modal centered isOpen={alertMsg !== ''}>
+            <ModalBody className='text-center'>
+              {alertMsg}
+            </ModalBody>
+          </Modal>
           <div>
             <span className="text-muted h6">{`Home > Category > ${results.category}`}</span>
           </div>
@@ -204,11 +211,13 @@ export class Product extends Component {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   product: state.product,
+  cart: state.cart
 });
 
 const mapDispatchToProps = {
   getProduct: productAction.getDetail,
   addCart: cartAction.addCart,
+  clearMsg: cartAction.clearMessage
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);
