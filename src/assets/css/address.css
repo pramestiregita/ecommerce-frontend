@@ -3,3 +3,19 @@
     max-width: 810px;
     margin: 1.75rem auto;
 }
+
+.address input {
+  height: 48px;
+}
+
+.change {
+  background-color: #ffff;
+  color: #DB3022;
+  border-width: 0;
+}
+
+.change:hover, .change:focus {
+  background-color: #fff;
+  color: #DB3022;
+  border-width: 0;
+}

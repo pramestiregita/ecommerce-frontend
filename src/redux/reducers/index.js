@@ -5,6 +5,7 @@ import product from './product';
 import profile from './profile';
 import cart from './cart';
 import checkout from './checkout';
+import address from './address';
 
 export default combineReducers({
   auth,
@@ -12,4 +13,5 @@ export default combineReducers({
   profile,
   cart,
   checkout,
+  address,
 });

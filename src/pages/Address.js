@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable import/no-named-as-default-member */
@@ -5,13 +6,15 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import '../assets/css/address.css';
 import {
-  Button, Card, Col, Input, Jumbotron, Modal, ModalBody, ModalFooter, Row,
+  Button, Card, CardBody, Col, Form, FormText, Input,
+  Jumbotron, Modal, ModalBody, ModalFooter,
+  ModalHeader, Row,
 } from 'reactstrap';
 
 // importing images
-import { Link } from 'react-router-dom';
 import edit from '../assets/images/edit.svg';
 import account from '../assets/images/user.svg';
 import map from '../assets/images/map.svg';
@@ -21,6 +24,7 @@ import order from '../assets/images/order.svg';
 import Navbar from '../components/Navbar2';
 
 import profileAction from '../redux/actions/profile';
+import addresAction from '../redux/actions/address';
 
 const { REACT_APP_BACKEND_URL } = process.env;
 
@@ -30,40 +34,90 @@ export class Address extends Component {
     this.state = {
       token: this.props.auth.token,
       modalOpen: false,
+      name: '',
+      recipientName: '',
+      recipientPhone: '',
+      address: '',
+      postalCode: '',
+      city: ''
     };
   }
 
   componentDidMount() {
     this.props.getProfile(this.state.token);
+    this.props.getAddress(this.state.token);
+  }
+
+  onChangeText = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  addAddress = (e) => {
+    e.preventDefault()
+    console.log(this.state)
   }
 
   render() {
-    const { data } = this.props.profile;
+    const { data: profile } = this.props.profile;
+    const { data: addressList } = this.props.address;
     return (
       <>
         <Modal className="address" isOpen={this.state.modalOpen}>
-          <ModalBody>
-            <Row style={{ width: 810 }}>
-              <Col md={12}>
-                <Input type="text" />
-              </Col>
-              <Col md={6}>
-                <Input type="text" />
-              </Col>
-            </Row>
-          </ModalBody>
-          <ModalFooter>
-            <Button className="btn-2 rounded-pill" style={{ width: 160 }} onClick={() => this.setState({ modalOpen: false })}>
-              Cancel
-            </Button>
-            <Button className="btn-1 rounded-pill" style={{ width: 160 }}>
-              Save
-            </Button>
-          </ModalFooter>
+          <ModalHeader>
+            <div className="my-2 h3 font-weight-bold text-center">Add new address</div>
+          </ModalHeader>
+          <Form onSubmit={this.addAddress}>
+            <ModalBody>
+              <Row style={{ width: 810 }} className='px-2'>
+                <Col className="my-2" md={12}>
+                  <FormText color="muted">Save address as (ex : home address, office address)</FormText>
+                  <Input onChange={()=>this.onChangeText} name='name' type="text" />
+                </Col>
+                <Col className="my-2" md={6}>
+                  <FormText color="muted">Recipient’s name</FormText>
+                  <Input onChange={()=>this.onChangeText} name='recipientName' type="text" />
+                </Col>
+                <Col className="my-2" md={6}>
+                  <FormText color="muted">Recipient's telephone number</FormText>
+                  <Input onChange={()=>this.onChangeText} name='recipientPhone' type="text" />
+                </Col>
+                <Col className="my-2" md={6}>
+                  <FormText color="muted">Address</FormText>
+                  <Input onChange={()=>this.onChangeText} name='address' type="text" />
+                </Col>
+                <Col className="my-2" md={6}>
+                  <FormText color="muted">Postal code</FormText>
+                  <Input onChange={()=>this.onChangeText} name='postalCode' type="text" />
+                </Col>
+                <Col className="my-2" md={6}>
+                  <FormText color="muted">City or Subdistrict</FormText>
+                  <Input onChange={()=>this.onChangeText} name='city' type="text" />
+                </Col>
+                <Col md={12} className="d-flex align-items-center">
+                  <div>
+                    <Input className="m-0 position-relative" type="checkbox" name="check" />
+                  </div>
+                  <div className="ml-2 mb-2">
+                    <FormText color="muted">Make it the primary address</FormText>
+                  </div>
+                </Col>
+              </Row>
+            </ModalBody>
+            <ModalFooter>
+              <Button className="btn-2 rounded-pill" style={{ width: 160 }} onClick={() => this.setState({ modalOpen: false })}>
+                Cancel
+              </Button>
+              <Button type="submit" className="btn-1 rounded-pill" style={{ width: 160 }}>
+                Save
+              </Button>
+            </ModalFooter>
+          </Form>
         </Modal>
         <div className="vh-100">
           <Navbar />
-          {data.length && data.map((item) => (
+          {profile.length && profile.map((item) => (
             <Row>
               <Col md={3}>
                 <div className="sidebar mt-5">
@@ -129,10 +183,31 @@ export class Address extends Component {
                       <div className="text-muted">Manage your shipping address</div>
                       <div className="my-3" style={{ backgroundColor: '#D4D4D4', height: 2 }}>&nbsp;</div>
                       <Row className="mt-4 mx-3">
-                        <Col md={12}>
+                        <Col className="my-2" md={12}>
                           <Button onClick={() => this.setState({ modalOpen: true })} block className="btn-3 rounded-lg" style={{ borderStyle: 'dotted', borderColor: '#9b9b9b' }}>
                             <div className="text-center text-muted my-4">Add new address</div>
                           </Button>
+                        </Col>
+                        <Col className="my-2" md={12}>
+                          {addressList.length && addressList.map((address) => (
+                            <Card className="rounded-lg">
+                              <CardBody>
+                                <div className="mx-2">
+                                  <div className="font-weight-bold">{address.recipient_name}</div>
+                                  <div className="mt-2 mb-3">
+                                    {address.address}
+                                    ,
+                                    {' '}
+                                    {address.city}
+                                    ,
+                                    {' '}
+                                    {address.postal_code}
+                                  </div>
+                                </div>
+                                <Button className="change font-weight-bold">Change Address</Button>
+                              </CardBody>
+                            </Card>
+                          ))}
                         </Col>
                       </Row>
                     </div>
@@ -150,10 +225,12 @@ export class Address extends Component {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
+  address: state.address,
 });
 
 const mapDispatchToProps = {
   getProfile: profileAction.getProfile,
+  getAddress: addresAction.getAddress,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Address);
