@@ -40,7 +40,7 @@ export class App extends Component {
       <>
         <BrowserRouter>
           <Switch>
-            <Route path="/homepage" component={HomePage} />
+            <Route path="/" component={HomePage} />
             <Route path="/login" render={(props) => <Login {...props} />} />
             <Route path="/register" component={Register} />
             <PrivateRoute path="/my-cart">
@@ -56,7 +56,7 @@ export class App extends Component {
               <Checkout />
             </PrivateRoute>
             <Route path="/product/detail/:id" component={Product} />
-            <Route path="/" component={Home} exact />
+            <Route path="/home" component={Home} exact />
             <Route path="/category" component={Category} />
             <Route path="/items" component={Items} />
             <Route path="/users" component={Users} />
