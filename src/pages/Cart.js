@@ -67,17 +67,19 @@ class Cart extends Component {
                 </Card>
                 {cart.map((item) => (
                   <CardCart
+                    id={item.product_id}
+                    img={item.image}
                     name={item.name}
                     store={item.store}
                     quantity={item.quantity}
-                    price={item.price}
+                    price={item.total}
                   />
                 ))}
               </Col>
               <Col md="4">
                 <Card body className="shadow">
                   <Container className="d-flex justify-content-center flex-column">
-                    <div className="title">
+                    <div className="">
                       <span className="h6 font-weight-bold">Shopping Summary</span>
                     </div>
                     <div className="price mt-2 d-flex justify-content-between">

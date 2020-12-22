@@ -37,7 +37,7 @@ export default class NavigationBar extends React.Component {
             <Col xs="12" lg="2" className="mx-auto">
               <div className="mx-auto text-center">
                 <NavbarBrand>
-                  <Link to="/homepage">
+                  <Link to="/">
                     <img img src={logo} alt="Logo Shop.id" style={{ width: 119, height: 44 }} />
                   </Link>
                 </NavbarBrand>

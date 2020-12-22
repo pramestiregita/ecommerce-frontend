@@ -19,6 +19,8 @@ import item from '../assets/images/item.jpg';
 import minus from '../assets/images/minus.svg';
 import plus from '../assets/images/plus.svg';
 
+const { REACT_APP_BACKEND_URL } = process.env;
+
 export default function CardCart(props) {
   return (
     <>
@@ -31,11 +33,11 @@ export default function CardCart(props) {
               </div>
             </Col>
             <Col md={6} className="product d-flex align-items-center">
-              <Link to="/product/detail">
-                <img style={{ width: 70, height: 69 }} src={item} alt="product picture" />
+              <Link to={`/product/detail/${props.id}`}>
+                <img style={{ width: 70, height: 69 }} src={props.img ? REACT_APP_BACKEND_URL.concat(props.img) : item} alt="product picture" />
               </Link>
               <div className="ml-3 d-flex flex-column">
-                <Link className="card-link" to="/product/detail">
+                <Link className="card-link" to={`/product/detail/${props.id}`}>
                   <span className="h6 font-weight-bold">{props.name}</span>
                 </Link>
                 <Link className="card-link ml-0" to="/store">

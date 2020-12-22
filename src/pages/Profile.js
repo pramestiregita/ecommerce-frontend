@@ -49,9 +49,10 @@ export default function Profile() {
       setImage(data[0].profile_picture);
     }
   }, [data]);
-  useEffect(() => {
-    dispatch(profileAction.getProfile(token));
-  }, [dispatch, token]);
+
+  // useEffect(() => {
+  //   dispatch(profileAction.getProfile(token));
+  // }, [dispatch, token]);
 
   const saveChange = (e) => {
     e.preventDefault();

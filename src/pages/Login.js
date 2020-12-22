@@ -41,7 +41,7 @@ class Login extends React.Component{
   componentDidUpdate() {
     this.props.auth.isLogin && this.props.history.push(
       this.props.location.state === undefined
-      ?'/homepage'
+      ?'/'
       :this.props.location.state.location)
   }
   

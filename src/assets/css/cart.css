@@ -14,12 +14,13 @@
 
 .delete {
   background-color: #ffff;
-  color: #DB3022;
+  color: #db3022;
   border-width: 0;
 }
 
-.delete:hover, .delete:focus {
+.delete:hover,
+.delete:focus {
   background-color: #fff;
-  color: #DB3022;
+  color: #db3022;
   border-width: 0;
 }

@@ -78,7 +78,7 @@
 }
 
 .fontColor {
-  color: #DB3022;
+  color: #db3022;
 }
 
 .fontColor:hover {
@@ -96,11 +96,14 @@
 }
 
 .btn-1 {
-  background-color: #DB3022;
+  background-color: #db3022;
   border-width: 0;
 }
 
-.btn-1:hover, .btn-1:focus, .btn-2:hover, .btn-2:focus {
+.btn-1:hover,
+.btn-1:focus,
+.btn-2:hover,
+.btn-2:focus {
   background-color: #91190f;
   color: #fff;
 }
@@ -111,15 +114,18 @@
   color: #9b9b9b;
 }
 
-.btn-3, .chowzb {
+.btn-3,
+.chowzb {
   background-color: #fff;
 }
 
-.btn-3:hover, .btn-3:focus {
+.btn-3:hover,
+.btn-3:focus {
   background-color: #fff;
 }
 
-.btn-4, .btn-4:hover {
+.btn-4,
+.btn-4:hover {
   background-color: #f8f9fa;
   border-width: 0;
 }
@@ -148,24 +154,44 @@
   border: 1px solid #9b9b9b;
 }
 
-.btn-1.form, .btn-2.form {
+.btn-1.form,
+.btn-2.form {
   width: 123px;
 }
 
-.form, .auth-input {
+.form,
+.auth-input {
   height: 48px;
 }
 
-.auth-input::placeholder, .input::placeholder {
+.auth-input::placeholder,
+.input::placeholder {
   color: #9b9b9b;
 }
 
-.input.search, .asc {
+.input.search,
+.asc {
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
 }
 
-.btn-search, .desc {
+.btn-search,
+.desc {
   border-top-right-radius: 25px !important;
   border-bottom-right-radius: 25px !important;
+}
+
+.des {
+  white-space: pre-wrap;
+}
+
+.btn-q,
+.btn-q:focus {
+  background-color: white;
+}
+
+.btn-text {
+  color: black;
+  padding: 5px;
+  font-size: 20px;
 }

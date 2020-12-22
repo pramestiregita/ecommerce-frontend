@@ -22,6 +22,9 @@ import product3 from '../assets/images/product3.jpg';
 import product4 from '../assets/images/product4.jpg';
 import { Link, Redirect } from 'react-router-dom';
 
+import '../assets/css/style.css'
+const { REACT_APP_BACKEND_URL } = process.env;
+
 export class Product extends Component {
   constructor(props) {
     super(props);
@@ -29,17 +32,18 @@ export class Product extends Component {
       id: this.props.match.params.id,
       token: this.props.auth.token,
       data: {},
+      quantity: 1
     };
   }
 
   componentDidMount() {
-    this.props.getProduct(this.state.id);
+    this.props.getProduct(this.props.match.params.id);
   }
 
   addCart = (productId) => {
     const cart = {
       productId,
-      quantity: 1
+      quantity: this.state.quantity
     }
     if (this.props.auth.isLogin === false) {
       const location = {
@@ -79,20 +83,7 @@ export class Product extends Component {
           </div>
           <Row className="my-3">
             <Col md={6}>
-              <Row>
-                <Col md={6} className="my-3">
-                  <img width="100%" src={product1} alt="..." />
-                </Col>
-                <Col md={6} className="my-3">
-                  <img width="100%" src={product2} alt="..." />
-                </Col>
-                <Col md={6} className="my-3">
-                  <img width="100%" src={product3} alt="..." />
-                </Col>
-                <Col md={6} className="my-3">
-                  <img width="100%" src={product4} alt="..." />
-                </Col>
-              </Row>
+              <img width="100%" src={REACT_APP_BACKEND_URL.concat(results.image)} alt="..." />
             </Col>
             <Col md={6} className="my-3 d-flex flex-column">
               <span className="h4 font-weight-bold">{results.name}</span>
@@ -106,16 +97,35 @@ export class Product extends Component {
                 {numeral(results.price).format(0, 0).toString().replace(',', '.')
                   .replace(',', '.')}
               </span>
-              <span className="mt-4">Color</span>
-              <div>colors</div>
+              {results.color?(
+                <>
+                  <span className="mt-4">Color</span>
+                  <div>colors</div>
+                </>
+              ):null}
               <Row className="mt-4">
                 <Col md={7}>
                   <Row>
-                    <Col md={6}>
-                      <span>Size</span>
-                    </Col>
+                    {results.size?(
+                      <Col md={6}>
+                        <span>Size</span>
+                      </Col>
+                    ):null}
                     <Col md={6}>
                       <span>Jumlah</span>
+                      <div className='d-flex justify-content-between align-items-center mt-3'>
+                        <Button onClick={()=>this.state.quantity>1&&
+                          this.setState({quantity:this.state.quantity-1})} className='btn-q rounded-circle shadow'>
+                            <span className='btn-text'>-</span>
+                        </Button>
+                        <div>
+                          <span>{this.state.quantity}</span>
+                        </div>
+                        <Button onClick={()=>this.state.quantity<results.quantity&&
+                          this.setState({quantity:this.state.quantity+1})} className='btn-q rounded-circle shadow'>
+                            <span className='btn-text'>+</span>
+                        </Button>
+                      </div>
                     </Col>
                   </Row>
                 </Col>
@@ -146,7 +156,7 @@ export class Product extends Component {
             <div className="h5 font-weight-bold mt-4">Condition</div>
             <div className="h5 font-weight-bold text-danger">{results.product_condition}</div>
             <div className="h5 font-weight-bold mt-4">Description</div>
-            <p className="text-muted">
+            <p className="text-muted des">
               {results.description}
             </p>
           </div>

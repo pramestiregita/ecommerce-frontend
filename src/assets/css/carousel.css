@@ -33,7 +33,7 @@
 .slide-wrapper {
   position: relative;
   padding-left: 50px;
-  padding-right: 30px;
+  margin-right: 30px;
 }
 
 .dot {
