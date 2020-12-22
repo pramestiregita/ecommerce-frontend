@@ -16,11 +16,7 @@ import Navbar1 from '../components/Navbar1';
 import Navbar2 from '../components/Navbar2';
 import Rating from '../components/StarRatings';
 
-import product1 from '../assets/images/product1.svg';
-import product2 from '../assets/images/product2.jpg';
-import product3 from '../assets/images/product3.jpg';
-import product4 from '../assets/images/product4.jpg';
-import { Link, Redirect } from 'react-router-dom';
+import yellow from '../assets/images/star-yellow.svg';
 
 import '../assets/css/style.css'
 const { REACT_APP_BACKEND_URL } = process.env;
@@ -185,11 +181,21 @@ export class Product extends Component {
                           <div>1</div>
                         </Col>
                         <Col md={1} className="d-flex flex-column justify-content-center align-items-center">
-                          <div className="text-muted">5</div>
-                          <div className="text-muted">4</div>
-                          <div className="text-muted">3</div>
-                          <div className="text-muted">2</div>
-                          <div className="text-muted">1</div>
+                          <div className="text-muted">
+                            <img src={yellow} alt='star'/>
+                          </div>
+                          <div className="text-muted">
+                            <img src={yellow} alt='star'/>
+                          </div>
+                          <div className="text-muted">
+                            <img src={yellow} alt='star'/>
+                          </div>
+                          <div className="text-muted">
+                            <img src={yellow} alt='star'/>
+                          </div>
+                          <div className="text-muted">
+                            <img src={yellow} alt='star'/>
+                          </div>
                         </Col>
                         <Col md={7} className="d-flex flex-column justify-content-center align-items-center">
                           <div>&nbsp;</div>

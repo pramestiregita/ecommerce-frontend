@@ -11,6 +11,8 @@ import {
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import '../assets/css/style.css'
+
 import auth from '../redux/actions/auth'
 
 // importing images
@@ -20,7 +22,9 @@ import filter from '../assets/images/filter.svg';
 import cart from '../assets/images/cart.svg';
 import bell from '../assets/images/bell.svg';
 import mail from '../assets/images/mail.svg';
-import profile from '../assets/images/profile.jpg';
+import profile from '../assets/images/profile.png';
+
+const { REACT_APP_BACKEND_URL } = process.env;
 
 class NavigationBar extends React.Component {
   constructor(props) {
@@ -128,7 +132,11 @@ class NavigationBar extends React.Component {
                           <NavItem className="w-100">
                             <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                               <DropdownToggle caret className='btn-4'>
-                                <img className="rounded-circle" src={profile} alt="Profile" />
+                                <img className="rounded-circle nav-ava" 
+                                src={this.props.profile.profile_picture
+                                  ?REACT_APP_BACKEND_URL.concat(this.props.profile.profile_picture)
+                                  :profile} 
+                                alt="Profile" />
                               </DropdownToggle>
                               <DropdownMenu>
                                 <DropdownItem>
@@ -157,7 +165,8 @@ class NavigationBar extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
+  profile: state.profile.data
 })
 
 const mapDispatchToProps = {

@@ -18,11 +18,14 @@ import edit from '../assets/images/edit.svg';
 import account from '../assets/images/user.svg';
 import map from '../assets/images/map.svg';
 import order from '../assets/images/order.svg';
+import profile from '../assets/images/profile.png';
 
 // importing components
 import Navbar from '../components/Navbar2';
 
 import profileAction from '../redux/actions/profile';
+
+import '../assets/css/style.css';
 
 const { REACT_APP_BACKEND_URL } = process.env;
 
@@ -39,20 +42,25 @@ export default function Profile() {
   const { data, alertMsg } = useSelector((state) => state.profile);
   const form = new FormData();
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (data.length) {
-      setName(data[0].name);
-      setEmail(data[0].email);
-      setPhone(data[0].phone);
-      setBirthdate(data[0].birthdate);
-      setGender(data[0].gender);
-      setImage(data[0].profile_picture);
-    }
-  }, [data]);
 
-  // useEffect(() => {
-  //   dispatch(profileAction.getProfile(token));
-  // }, [dispatch, token]);
+  const setData = () => {
+    if (data) {
+      setName(data.name);
+      setEmail(data.email);
+      setPhone(data.phone);
+      setBirthdate(data.birthdate);
+      setGender(data.gender);
+      setImage(data.profile_picture);
+    }
+  };
+
+  useEffect(() => {
+    setData();
+  }, []);
+
+  const getData = () => {
+    dispatch(profileAction.getProfile(token));
+  };
 
   const saveChange = (e) => {
     e.preventDefault();
@@ -73,17 +81,27 @@ export default function Profile() {
 
   useEffect(() => {
     dispatch(profileAction.editProfile(token, body));
+  }, [token, body]);
+
+  useEffect(() => {
     if (alertMsg !== '') {
       setAlertOpen(true);
     }
-  }, [token, body]);
+  }, [alertMsg]);
 
   const uploadPict = (e) => {
     form.append('picture', e.target.files[0]);
     dispatch(profileAction.editPict(token, form));
-    if (data.length) {
-      setImage(data[0].profile_picture);
+    if (data) {
+      setImage(data.profile_picture);
     }
+  };
+
+  const closeModal = () => {
+    setData();
+    getData();
+    setAlertOpen(false);
+    dispatch({ type: 'CLEAR_PROFILE' });
   };
 
   return (
@@ -95,7 +113,13 @@ export default function Profile() {
             <div className="sidebar mt-5">
               <Row>
                 <Col md={4}>
-                  <img className="rounded-circle" src={REACT_APP_BACKEND_URL.concat(image)} alt="avatar" width="60px" height="60px" />
+                  <img
+                    className="rounded-circle"
+                    src={image ? REACT_APP_BACKEND_URL.concat(image) : profile}
+                    alt="avatar"
+                    width="60px"
+                    height="60px"
+                  />
                 </Col>
                 <Col md={8}>
                   <div>{name}</div>
@@ -112,7 +136,7 @@ export default function Profile() {
               <Link to="/my-profile" className="linkColor">
                 <Row className="user d-flex align-items-center mt-5">
                   <Col md={3}>
-                    <Button>
+                    <Button className="list-btn rounded-circle" style={{ backgroundColor: '#456BF3' }}>
                       <img src={account} alt="" />
                     </Button>
                   </Col>
@@ -124,7 +148,7 @@ export default function Profile() {
               <Link to="/my-address" className="linkColor">
                 <Row className="map d-flex align-items-center mt-3">
                   <Col md={3}>
-                    <Button>
+                    <Button className="list-btn rounded-circle" style={{ backgroundColor: '#F36F45' }}>
                       <img src={map} alt="" />
                     </Button>
                   </Col>
@@ -136,7 +160,7 @@ export default function Profile() {
               <Link to="/my-order" className="linkColor">
                 <Row className="order d-flex align-items-center mt-3">
                   <Col md={3}>
-                    <Button>
+                    <Button className="list-btn rounded-circle" style={{ backgroundColor: '#F3456F' }}>
                       <img src={order} alt="" />
                     </Button>
                   </Col>
@@ -219,7 +243,10 @@ export default function Profile() {
                                 {alertMsg}
                               </ModalBody>
                               <ModalFooter>
-                                <Button onClick={() => setAlertOpen(false)}>Close</Button>
+                                <Button onClick={() => closeModal()}>
+                                  Close
+
+                                </Button>
                               </ModalFooter>
                             </Modal>
                             <Button type="submit" className="btn-1 rounded-pill" style={{ width: 100 }}>Save</Button>
@@ -233,7 +260,13 @@ export default function Profile() {
                     <Col md={3} className="pr-5">
                       <Form className="d-flex flex-column align-items-center">
                         <div>
-                          <img className="rounded-circle" src={REACT_APP_BACKEND_URL.concat(image)} alt="avatar" width="110px" height="110px" />
+                          <img
+                            className="rounded-circle"
+                            src={image ? REACT_APP_BACKEND_URL.concat(image) : profile}
+                            alt="avatar"
+                            width="110px"
+                            height="110px"
+                          />
                         </div>
                         <div className="my-4">
                           {/* <Button type="submit" className="btn-2 rounded-pill" style={{ width: 140 }}>Select Image</Button> */}

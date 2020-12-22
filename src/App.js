@@ -7,8 +7,7 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 // importing components
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import PrivateRoute from './components/PrivateRoute';
 
 // importing pages
@@ -26,53 +25,35 @@ import Product from './pages/Product';
 import Profile from './pages/Profile';
 import Address from './pages/Address';
 
-import authAction from './redux/actions/auth';
-
-export class App extends Component {
-  componentDidMount() {
-    if (localStorage.getItem('token')) {
-      this.props.setToken(localStorage.getItem('token'));
-    }
-  }
-
-  render() {
-    return (
-      <>
-        <BrowserRouter>
-          <Switch>
-            <Route path="/home" component={Home} />
-            <Route path="/login" render={(props) => <Login {...props} />} />
-            <Route path="/register" component={Register} />
-            <PrivateRoute path="/my-cart">
-              <Cart />
-            </PrivateRoute>
-            <PrivateRoute path="/my-profile">
-              <Profile />
-            </PrivateRoute>
-            <PrivateRoute path="/my-address">
-              <Address />
-            </PrivateRoute>
-            <PrivateRoute path="/checkout">
-              <Checkout />
-            </PrivateRoute>
-            <Route path="/product/detail/:id" component={Product} exact />
-            <Route path="/" component={HomePage} exact />
-            <Route path="/category" component={Category} />
-            <Route path="/items" component={Items} />
-            <Route path="/users" component={Users} />
-          </Switch>
-        </BrowserRouter>
-      </>
-    );
-  }
+function App() {
+  return (
+    <>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/home" component={Home} />
+          <Route path="/login" render={(props) => <Login {...props} />} />
+          <Route path="/register" component={Register} />
+          <PrivateRoute path="/my-cart">
+            <Cart />
+          </PrivateRoute>
+          <PrivateRoute path="/my-profile">
+            <Profile />
+          </PrivateRoute>
+          <PrivateRoute path="/my-address">
+            <Address />
+          </PrivateRoute>
+          <PrivateRoute path="/checkout">
+            <Checkout />
+          </PrivateRoute>
+          <Route path="/product/detail/:id" component={Product} exact />
+          <Route path="/" component={HomePage} exact />
+          <Route path="/category" component={Category} />
+          <Route path="/items" component={Items} />
+          <Route path="/users" component={Users} />
+        </Switch>
+      </BrowserRouter>
+    </>
+  );
 }
 
-const mapStateToProps = (state) => ({
-
-});
-
-const mapDispatchToProps = {
-  setToken: authAction.setToken,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

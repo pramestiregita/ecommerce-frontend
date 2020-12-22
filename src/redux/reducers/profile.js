@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        data: action.payload.data.data,
+        data: action.payload.data.data[0],
       };
     }
     case 'EDIT_PROFILE_PENDING': {
@@ -70,6 +70,12 @@ export default (state = initialState, action) => {
         isLoading: false,
         isError: false,
         alertMsg: action.payload.data.message,
+      };
+    }
+    case 'CLEAR_PROFILE': {
+      return {
+        ...state,
+        alertMsg: '',
       };
     }
     default: {
